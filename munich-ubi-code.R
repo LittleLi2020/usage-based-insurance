@@ -1,4 +1,4 @@
-# %% [R code]
+# %% [code]
 # --------------------------------------------------------------------------------------------------------
 # ---------------------------------------import data------------------------------------------------------
 library(data.table)
@@ -188,15 +188,15 @@ names(range_journey)[which(names(range_journey)== "V1")] <- "range"
 # ------------------------------------每段出行的平均、最大、标准差、MAE、最小、各个分位点速度------------------------------
 speed_group <- dplyr::group_by(raw_data_test, journeyId)
 speed_distribution <- dplyr::summarise(speed_group,
-                                speed_average = mean(speed),
-                                speed_max = max(speed),
-                                speed_min = min(speed),
-                                speed_sd = sd(speed),
-                                speed_MAE = mean(abs(speed-mean(speed))),
-                                speed_ten_percentile = quantile(speed,0.1),
-                                speed_thirty_percentile = quantile(speed,0.3),
-                                speed_seventy_percentle = quantile(speed,0.7),
-                                speed_ninty_percentie = quantile(speed,0.9))
+                                       speed_average = mean(speed),
+                                       speed_max = max(speed),
+                                       speed_min = min(speed),
+                                       speed_sd = sd(speed),
+                                       speed_MAE = mean(abs(speed-mean(speed))),
+                                       speed_ten_percentile = quantile(speed,0.1),
+                                       speed_thirty_percentile = quantile(speed,0.3),
+                                       speed_seventy_percentle = quantile(speed,0.7),
+                                       speed_ninty_percentie = quantile(speed,0.9))
 speed_journey <- data.frame(speed_distribution)
 names(speed_journey) <- c("journeyId","mean_speed","max_speed","min_speed","sd_speed","MAE_speed","tenPercentile_speed",
                           "thirtyPercentile_speed","seventyPercentile_speed",
@@ -205,34 +205,34 @@ names(speed_journey) <- c("journeyId","mean_speed","max_speed","min_speed","sd_s
 # ------------------------------------每段出行的平均、最大、标准差、MAE、最小、各个分位点切向加速度------------------------------
 rd_acce_group <-dplyr:: group_by(raw_data_test, journeyId)
 rd_acce_distribution <- dplyr:: summarise(rd_acce_group,
-                                rd_acce_average <- mean(rd_acce),
-                                rd_acce_max = max(rd_acce),
-                                rd_acce_min = min(rd_acce),
-                                rd_acce_sd = sd(rd_acce),
-                                rd_acce_MAE = mean(abs(rd_acce-mean(rd_acce))),
-                                rd_acce_ten_percentile = quantile(rd_acce,0.1),
-                                rd_acce_thirty_percentile = quantile(rd_acce,0.3),
-                                rd_acce_seventy_percentle = quantile(rd_acce,0.7),
-                                rd_acce_ninty_percentle = quantile(rd_acce,0.9)
-                                )
+                                          rd_acce_average <- mean(rd_acce),
+                                          rd_acce_max = max(rd_acce),
+                                          rd_acce_min = min(rd_acce),
+                                          rd_acce_sd = sd(rd_acce),
+                                          rd_acce_MAE = mean(abs(rd_acce-mean(rd_acce))),
+                                          rd_acce_ten_percentile = quantile(rd_acce,0.1),
+                                          rd_acce_thirty_percentile = quantile(rd_acce,0.3),
+                                          rd_acce_seventy_percentle = quantile(rd_acce,0.7),
+                                          rd_acce_ninty_percentle = quantile(rd_acce,0.9)
+)
 rd_acce_journey <- data.frame(rd_acce_distribution)
 names(rd_acce_journey) <- c("journeyId","mean_rd","max_rd","min_rd","sd_rd","MAE_rd","tenPercentile_rd","thirtyPercentile_rd",
                             "seventyPercentile_rd",
-                          "nintyPercentile_rd")
+                            "nintyPercentile_rd")
 #save(rd_acce_journey,file = paste0("C:/Users/ny42068/work/UBI/","rd_acce_journey.RData_2017_01"))
 # ------------------------------------每段出行的平均、最大、标准差、MAE、最小、各个分位点向心加速度------------------------------
 tg_acce_group <- dplyr::group_by(raw_data_test, journeyId)
 tg_acce_distribution <- dplyr::summarise(tg_acce_group,
-                                   tg_acce_average = mean(tg_acce),
-                                   tg_acce_max = max(tg_acce),
-                                   tg_acce_min = min(tg_acce),
-                                   tg_acce_sd = sd(tg_acce),
-                                   tg_acce_MAE = mean(abs(tg_acce-mean(tg_acce))),
-                                   tg_acce_ten_percentile = quantile(tg_acce,0.1),
-                                   tg_acce_thirty_percentile = quantile(tg_acce,0.3),
-                                   tg_acce_seventy_percentle = quantile(tg_acce,0.7),
-                                   tg_acce_ninty_percentle = quantile(tg_acce,0.9)
-                                   )
+                                         tg_acce_average = mean(tg_acce),
+                                         tg_acce_max = max(tg_acce),
+                                         tg_acce_min = min(tg_acce),
+                                         tg_acce_sd = sd(tg_acce),
+                                         tg_acce_MAE = mean(abs(tg_acce-mean(tg_acce))),
+                                         tg_acce_ten_percentile = quantile(tg_acce,0.1),
+                                         tg_acce_thirty_percentile = quantile(tg_acce,0.3),
+                                         tg_acce_seventy_percentle = quantile(tg_acce,0.7),
+                                         tg_acce_ninty_percentle = quantile(tg_acce,0.9)
+)
 tg_acce_journey <- data.frame(tg_acce_distribution)
 names(tg_acce_journey) <- c("journeyId","mean_tg","max_tg","min_tg","sd_tg","MAE_tg","tenPercentile_tg",
                             "thirtyPercentile_tg","seventyPercentile_tg",
@@ -246,11 +246,11 @@ jerk <- jerk[jerk$del == 0,]
 jerk$jerk <- jerk$dtg_acce/jerk$dtime
 jerk_group <- dplyr::group_by(jerk, journeyId)
 jerk_distribution <- dplyr::summarise(jerk_group,
-                                   jerk_average = mean(abs(jerk)),
-                                   jerk_max = max(abs(jerk)),
-                                   jerk_seventy_percentle = quantile(abs(jerk),0.7),
-                                   jerk_ninty_percentle = quantile(abs(jerk),0.9)
-                               )
+                                      jerk_average = mean(abs(jerk)),
+                                      jerk_max = max(abs(jerk)),
+                                      jerk_seventy_percentle = quantile(abs(jerk),0.7),
+                                      jerk_ninty_percentle = quantile(abs(jerk),0.9)
+)
 jerk_journey <- data.frame(jerk_distribution)
 names(jerk_journey) <- c("journeyId","mean_jerk","max_jerk","seventyPercentile_jerk","nintyPercentile_jerk")
 #save(jerk_journey,file = paste0("C:/Users/ny42068/work/UBI/","jerk_journey_2017_01.RData"))
@@ -275,24 +275,24 @@ driveLabel_journey <- merge(driveLabel_journey, mileage_journey[1], by.x = "jour
 # 认为等效加速度大于2m/s^2为一次恶劣驾驶行为
 
 harshDriving_seconds_journey <- plyr::ddply(raw_data_test,.(journeyId),function(x){
-                                              length(sqrt(x$tg_acce^2 + x$rd_acce^2)[sqrt(x$tg_acce^2 + x$rd_acce^2) > 2])
-                                            })
+  length(sqrt(x$tg_acce^2 + x$rd_acce^2)[sqrt(x$tg_acce^2 + x$rd_acce^2) > 2])
+})
 
 names(harshDriving_seconds_journey)[which(names(harshDriving_seconds_journey) == "V1")] <- "harshDriving_seconds"
 #save(harshDriving_seconds_journey,file = paste0("C:/Users/ny42068/work/UBI/","harshDriving_seconds_journey_2017_01.RData"))
 # ----------------------------每段行程静止、低速行驶时间占比---------------------------
 # 静止、低速行驶时间的单位是s
 slowTime_journey <- plyr::ddply(raw_data_test, .(journeyId),
-                          function(x){       
-                            sum(x$dtime[x$speed < 5.56])/driveTime_journey$driveTime[driveTime_journey$journeyId == x$journeyId[1]]
-                          })
+                                function(x){       
+                                  sum(x$dtime[x$speed < 5.56])/driveTime_journey$driveTime[driveTime_journey$journeyId == x$journeyId[1]]
+                                })
 names(slowTime_journey)[which(names(slowTime_journey) == "V1")] <- "slowTime"
 #save(slowTime_journey,file = paste0("C:/Users/ny42068/work/UBI/","slowTime_journey.RData_2017_01"))
 # ----------------------------连续行驶两个小时以上的时间占比--------------------
 fatigue_journey <-plyr::ddply(raw_data_test, .(journeyId),
-                         function(x){
-                           max(sum(x$dtime)-7200,0)/driveTime_journey$driveTime[driveTime_journey$journeyId == x$journeyId[1]]
-                         })
+                              function(x){
+                                max(sum(x$dtime)-7200,0)/driveTime_journey$driveTime[driveTime_journey$journeyId == x$journeyId[1]]
+                              })
 names(fatigue_journey)[which(names(fatigue_journey) == "V1")] <- "fatigue"
 #save(fatigue_journey,file = paste0("C:/Users/ny42068/work/UBI/","fatigue_journey.RData_2017_01"))
 # -----------------------------驾驶平稳度-----------------------------------------------------------------
@@ -304,7 +304,7 @@ instability <- function(x){
   speed_pred <- speed_temp + tg_acce_temp * dtime_temp
   speed_pred <- speed_pred[-length(speed_pred)]
   #return(speed_pred)
-   sum(abs(speed_pred - speed_actual))/length(speed_pred)
+  sum(abs(speed_pred - speed_actual))/length(speed_pred)
 }
 instability_journey <- plyr::ddply(raw_data_test, .(journeyId), function(x){
   instability(x)
@@ -374,9 +374,9 @@ rapidTurn_identify_pro <- function(x){
 
 
 rapidTurn_events_journey <- plyr::ddply(raw_data_test, .(journeyId),
-                           function(x){
-                             length(rapidTurn_begin_identify(x))
-                           }
+                                        function(x){
+                                          length(rapidTurn_begin_identify(x))
+                                        }
 )
 
 names(rapidTurn_events_journey)[2] <- "rapidTurn_events_times"
@@ -408,9 +408,9 @@ rapidAcce_begin_identify <- function(x){
 }
 
 rapidAcce_events_journey <- plyr::ddply(raw_data_test, .(journeyId),
-                           function(x){
-                             length(rapidAcce_begin_identify(x))
-                           }
+                                        function(x){
+                                          length(rapidAcce_begin_identify(x))
+                                        }
 )
 names(rapidAcce_events_journey)[2] <- "rapidAcce_events_times"
 #save(rapidAcce_events_journey,file = paste0("C:/Users/ny42068/work/UBI/","rapidAcce_events_journey_2017_01.RData"))
@@ -432,9 +432,9 @@ rapidDece_begin_identify <- function(x){
 }
 
 rapidDece_events_journey <- plyr::ddply(raw_data_test, .(journeyId),
-                           function(x){
-                             length(rapidDece_begin_identify(x))
-                           }
+                                        function(x){
+                                          length(rapidDece_begin_identify(x))
+                                        }
 )
 names(rapidDece_events_journey)[2] <- "rapidDece_events_times"
 #save(rapidDece_events_journey,file = paste0("C:/Users/ny42068/work/UBI/","rapidDece_events_journey_2017_01.RData"))
@@ -457,9 +457,9 @@ harshDriving_events_begin_identify <- function(x){
 }
 
 harshDriving_events_journey <- plyr::ddply(raw_data_test, .(journeyId),
-                           function(x){
-                             length(harshDriving_events_begin_identify(x))
-                           }
+                                           function(x){
+                                             length(harshDriving_events_begin_identify(x))
+                                           }
 )
 names(harshDriving_events_journey)[2] <- "harshDriving_events_times"
 #save(harshDriving_events_journey,file = paste0("C:/Users/ny42068/work/UBI/","harshDriving_events_journey_2017_01.RData"))
@@ -480,9 +480,9 @@ onPhone_begin_identify <- function(x){
 }
 
 onPhone_journey <- plyr::ddply(raw_data_test, .(journeyId),
-                           function(x){
-                             length(onPhone_begin_identify(x))
-                           }
+                               function(x){
+                                 length(onPhone_begin_identify(x))
+                               }
 )
 names(onPhone_journey)[2] <- "onPhone"
 #save(onPhone_journey,file = paste0("C:/Users/ny42068/work/UBI/","onPhone_journey_2017_01.RData"))
@@ -525,7 +525,7 @@ library('dplyr')
 location <- "C:/Users/ny42068/work/UBI/journey/"
 fileNames <- dir(location)
 for (i in fileNames){
-   load(paste0(location,i))
+  load(paste0(location,i))
 }
 
 # ----------------------------------------------行程轨迹图-------------------------------------------------------
@@ -610,7 +610,7 @@ location_plot <- ggplot() +
   geom_text(aes(x =log, y = lat, label=label4),data=journey_analysis,size = 12) +
   labs(x = "longitude", y = "latitude", title = "The track of the car")+
   theme(plot.title = element_text(hjust = 0.5))
-  
+
 # journey_analysis[journey_analysis$dtime >120, ]
 grid.arrange(location_plot,accerlation_plot,turn_plot, layout_matrix = rbind(c(1,2,2),c(1,3,3)))
 #  nrow(journey_analysis)
@@ -628,10 +628,10 @@ install_github('lchiffon/REmap')
 summary(raw_data_full$lat_acce)
 # 密度图
 ggplot(raw_data_full,aes(x = lat_acce)) + 
-       geom_density()
+  geom_density()
 # 直方图
 ggplot(raw_data_full[raw_data_full$lat_acce < 50 & raw_data_full$lat_acce >-50,],aes(x = lat_acce)) + 
-       geom_histogram()
+  geom_histogram()
 # 求分位数
 raw_data_full[raw_data_full$lat_acce>400,]
 raw_data_full[307400:307420,]
@@ -657,7 +657,7 @@ trip_data <- trip_data[!is.na(trip_data$total_journey_actual_score),]
 # 434378 obs. of 20 variables
 
 trip_data_cmplt <- trip_data %>% select(total_journey_score,client_user_id,journey_id,length,total_journey_actual_score, valid_journey, Speeding,
-                                             Braking, Cornering, Acceleration, OnPhone, start_date, end_date)
+                                        Braking, Cornering, Acceleration, OnPhone, start_date, end_date)
 
 trip_data_cmplt <- trip_data_cmplt[substr(trip_data_cmplt$start_date,1,4) == "2017"& 
                                      complete.cases(trip_data_cmplt)&
@@ -722,7 +722,7 @@ hist(trip_data_cmplt$length, freq = F, xlab = "Trip Length (KM)",
      main = "Histogram of OnPhone per KM " ,xlim = c(0,100),breaks = 100)
 
 #hist(trip_data_cmplt$Texting/trip_data_cmplt$length, freq = F, xlab = "Text per KM", 
- #    main = "Histogram of Text per KM ")
+#    main = "Histogram of Text per KM ")
 
 #boxplot(trip_data_cmplt$total_journey_actual_score)
 
@@ -754,7 +754,7 @@ plot_oneway <- function(df){
     labs(title=df$var_name)
   print(p)
 }
- 
+
 
 
 #install.packages("ggmap")
@@ -835,7 +835,7 @@ for (i in sequence){
 # dev.off()
 
 pick_var <- read.xlsx(paste0("G:/_Temp_Files/Weiran/Images of Oneway Analysis/old/temp/","selected_variable.xlsx"),
-                  sheetName = "log_norm")
+                      sheetName = "log_norm")
 pick_var <- filter(pick_var, choose == 1 )
 driving_behavior_pick <- driving_behavior_select_full[which(colnames(driving_behavior_select_full) %in% pick_var$name)]
 
@@ -853,7 +853,7 @@ driving_behavior_pick$label <- factor(driving_behavior_pick$label)
 # driving_behavior_pick$rapidTurn_events_times <- factor(driving_behavior_pick$rapidTurn_events_times)
 save(driving_behavior_pick, file =paste0("G:/_Temp_Files/Weiran/Images of Oneway Analysis/old/temp/","driving_behavior_pick_integer_2017_01_p1.RData"))
 # str(driving_behavior_pick)
-  
+
 #--------------------------------------------------------------------------------------------------------------------------
 # ----------------------------------------------------modeling------------------------------------------------------------
 # ----------------------------------- import data------------------------------------------------------------------------------
@@ -874,7 +874,7 @@ driving_behavior_all <- driving_behavior_all[,-which(colnames(driving_behavior_a
 
 #----------------------------------
 str(driving_behavior_all)
- <- as.numeric(driving_behavior_all$rapidAcce_events_times)
+<- as.numeric(driving_behavior_all$rapidAcce_events_times)
 
 #-----------------------------------xgboost regression tree--------------------------------------------------------------------
 library("Matrix")
@@ -934,7 +934,7 @@ MAE_tree <- sum(abs(xgb_tree_pred - test$total_journey_actual_score))/length(xgb
 MSE_tree <- sum((xgb_tree_pred - test$total_journey_actual_score)^2)/length(xgb_tree_pred)
 #xgb.importance(model =xgb_tree_model )
 #xgb_tree_imp <- xgb.importance(feature_names = xgb_tree_model$finalModel$feature_names,
-                            #   model = xgb_tree_model$finalModel)
+#   model = xgb_tree_model$finalModel)
 
 
 
@@ -1015,7 +1015,7 @@ ranger_trcontrol = trainControl(method = "cv",
 rftrain <- train
 rftrain$total_journey_actual_score <- log(rftrain$total_journey_actual_score + 1)
 #rftest <- test
- #summary(rftest)
+#summary(rftest)
 #rfxtest <- rftest %>% select(-total_journey_actual_score)
 # summary(rfxtest)
 ranger_model = train(total_journey_actual_score ~. ,
@@ -1034,7 +1034,7 @@ t2 - t1
 rf_pred <- exp(predict(ranger_model, test)) -1 
 MAE_rf <- sum(abs(rf_pred - test$total_journey_actual_score))/length(rf_pred)
 MSE_rf <- sum((rf_pred - test$total_journey_actual_score)^2)/length(rf_pred)
- 
+
 
 # ------------------------------------------------------------------------------------------------------------------------
 # --------------------------------------------------partial dependence--------------------------------------------------------------
@@ -1058,16 +1058,16 @@ df_group <- group_by(df, cut_point)
 df_sum <- summarise(df_group, 
                     mean_score  = mean(score),
                     weight  = length(score)
-                    )
+)
 df_sum <- as.data.frame(df_sum)
 colnames(df_sum) <- c("var_band","loss_ratio_base","Total_prem_base")
 df_sum$var_band <- as.character(df_sum$var_band)
 str(df_sum)
 for (i in 1:nrow(df_sum)){
-# loc1 <- gregexpr("[",df_sum$var_band[1])[[1]][1]
-loc2 <- gregexpr(",",df_sum$var_band[i])[[1]][1]
-loc3 <- gregexpr(")",df_sum$var_band[i])[[1]][1]
-df_sum$var_band[i] <- paste0(substr(df_sum$var_band[i],2,loc2-1),"-",substr(df_sum$var_band[i],loc2+1,loc3-1))
+  # loc1 <- gregexpr("[",df_sum$var_band[1])[[1]][1]
+  loc2 <- gregexpr(",",df_sum$var_band[i])[[1]][1]
+  loc3 <- gregexpr(")",df_sum$var_band[i])[[1]][1]
+  df_sum$var_band[i] <- paste0(substr(df_sum$var_band[i],2,loc2-1),"-",substr(df_sum$var_band[i],loc2+1,loc3-1))
 }
 df_sum$var_band[18] <- '> 120'
 library(ggplot2)
@@ -1091,83 +1091,83 @@ library(ggplot2)
 # ggplot(data = driving_behavior_org,a)
 
 df = df_sum  
-  p <- ggplot(df, aes(x=var_band))+
-    scale_x_discrete(limits=df$var_band)+
-    # weight
-    geom_bar(aes(y=Total_prem_base, fill=var_band), stat = 'identity', fill = gray(0.7))+
-    # actual
-    geom_line(aes(y=loss_ratio_base* 0.02*max(df$Total_prem_base), group=1), colour = "steelblue", size = 1)+
-    geom_point(aes(y=loss_ratio_base* 0.02*max(df$Total_prem_base), group=1), colour = "steelblue", size = 2)+
-    
-    # geom_line(aes(y=(avg_base_lr)* 3*max(df$Total_prem_base),  group=2), colour = "steelblue", size = 0.6)+
-    scale_y_continuous(limits=c(0, 2.5*max(df$Total_prem_base)), 
-                       sec.axis = sec_axis(~. *50/(max(df$Total_prem_base)), name = 'Trip Score'))+
-    theme(axis.text.x=element_text(angle=45,hjust=0.2,vjust=0.1))+
-    labs(title="One-Way Analysis on Max Speed (KM/H)", y = "Number of Trips", x = "Max Speed") + 
-    
-    theme(plot.title = element_text(hjust = 0.5))  
-  print(p)
-  #ggsave(paste(resultdir,df$var_no, '.jpg'), p, device = 'jpeg')
+p <- ggplot(df, aes(x=var_band))+
+  scale_x_discrete(limits=df$var_band)+
+  # weight
+  geom_bar(aes(y=Total_prem_base, fill=var_band), stat = 'identity', fill = gray(0.7))+
+  # actual
+  geom_line(aes(y=loss_ratio_base* 0.02*max(df$Total_prem_base), group=1), colour = "steelblue", size = 1)+
+  geom_point(aes(y=loss_ratio_base* 0.02*max(df$Total_prem_base), group=1), colour = "steelblue", size = 2)+
+  
+  # geom_line(aes(y=(avg_base_lr)* 3*max(df$Total_prem_base),  group=2), colour = "steelblue", size = 0.6)+
+  scale_y_continuous(limits=c(0, 2.5*max(df$Total_prem_base)), 
+                     sec.axis = sec_axis(~. *50/(max(df$Total_prem_base)), name = 'Trip Score'))+
+  theme(axis.text.x=element_text(angle=45,hjust=0.2,vjust=0.1))+
+  labs(title="One-Way Analysis on Max Speed (KM/H)", y = "Number of Trips", x = "Max Speed") + 
+  
+  theme(plot.title = element_text(hjust = 0.5))  
+print(p)
+#ggsave(paste(resultdir,df$var_no, '.jpg'), p, device = 'jpeg')
 
-  
-  hist(driving_behavior_org$rapidTurn_events_times,breaks = 100)
-  # table(driving_behavior_org$rapidTurn_events_times)
-  # sum(driving_behavior_org$rapidTurn_events_times>100)
-  # sum(driving_behavior_org$rapidTurn_events_times<=100 & driving_behavior_org$rapidTurn_events_times>50)
-  # sum(driving_behavior_org$rapidTurn_events_times<=100 & driving_behavior_org$rapidTurn_events_times>50)
-  
-  driving_behavior_org$rapidTurn_events_times <- driving_behavior_org$rapidTurn_events_times / driving_behavior_org$mileage
-  driving_behavior_org$rapidTurn_events_times <- driving_behavior_org$rapidTurn_events_times * 10 
-  
-  ### times per KM 
-  
-  quantile(driving_behavior_org$rapidTurn_events_times, seq(0.1,1,0.1)) 
-  sum(driving_behavior_org$rapidTurn_events_times>8)
-  
-  
 
-  
-  cut_point <- cut(driving_behavior_org$rapidTurn_events_times,breaks = c(seq(0,75,5),100,
-                                                                   max(driving_behavior_org$rapidTurn_events_times)+0.001),right = F)
-  df <- data.frame(driving_behavior_org$rapidTurn_events_times, driving_behavior_org$total_journey_actual_score,cut_point)
-  names(df) <- c("rapidTurn_events_times","score","cut_point")
-  # head(df)
-  # str(df)
-  # summary(df)
-  
-  df_group <- group_by(df, cut_point)
-  df_sum <- summarise(df_group, 
-                      mean_score  = mean(score),
-                      weight  = length(score)
-  )
-  df_sum <- as.data.frame(df_sum)
-  colnames(df_sum) <- c("var_band","loss_ratio_base","Total_prem_base")
-  df_sum$var_band <- as.character(df_sum$var_band)
-  # str(df_sum)
-  for (i in 1:nrow(df_sum)){
-    # loc1 <- gregexpr("[",df_sum$var_band[1])[[1]][1]
-    loc2 <- gregexpr(",",df_sum$var_band[i])[[1]][1]
-    loc3 <- gregexpr(")",df_sum$var_band[i])[[1]][1]
-    df_sum$var_band[i] <- paste0(substr(df_sum$var_band[i],2,loc2-1),"-",substr(df_sum$var_band[i],loc2+1,loc3-1))
-  }
-   df_sum$var_band[17] <- '> 100'
-  
- df = df_sum  
-  p <- ggplot(df, aes(x=var_band))+
-    scale_x_discrete(limits=df$var_band)+
-    # weight
-    geom_bar(aes(y=Total_prem_base, fill=var_band), stat = 'identity', fill = gray(0.7))+
-    # actual
-    geom_line(aes(y=loss_ratio_base* 0.02*max(df$Total_prem_base), group=1), colour = "steelblue", size = 1)+
-    geom_point(aes(y=loss_ratio_base* 0.02*max(df$Total_prem_base), group=1), colour = "steelblue", size = 2)+
-    # geom_line(aes(y=(avg_base_lr)* 3*max(df$Total_prem_base),  group=2), colour = "steelblue", size = 0.6)+
-    scale_y_continuous(limits=c(0, 2.5*max(df$Total_prem_base)), 
-                       sec.axis = sec_axis(~. *50/(max(df$Total_prem_base)), name = 'Trip Score'))+
-    theme(axis.text.x=element_text(angle=45,hjust=0.2,vjust=0.1))+
-    labs(title="One-Way Analysis on Harsh Cornering Count", y = "Number of Trips", x = "") + 
-    theme(plot.title = element_text(hjust = 0.5))
-  print(p)
-  
+hist(driving_behavior_org$rapidTurn_events_times,breaks = 100)
+# table(driving_behavior_org$rapidTurn_events_times)
+# sum(driving_behavior_org$rapidTurn_events_times>100)
+# sum(driving_behavior_org$rapidTurn_events_times<=100 & driving_behavior_org$rapidTurn_events_times>50)
+# sum(driving_behavior_org$rapidTurn_events_times<=100 & driving_behavior_org$rapidTurn_events_times>50)
+
+driving_behavior_org$rapidTurn_events_times <- driving_behavior_org$rapidTurn_events_times / driving_behavior_org$mileage
+driving_behavior_org$rapidTurn_events_times <- driving_behavior_org$rapidTurn_events_times * 10 
+
+### times per KM 
+
+quantile(driving_behavior_org$rapidTurn_events_times, seq(0.1,1,0.1)) 
+sum(driving_behavior_org$rapidTurn_events_times>8)
+
+
+
+
+cut_point <- cut(driving_behavior_org$rapidTurn_events_times,breaks = c(seq(0,75,5),100,
+                                                                        max(driving_behavior_org$rapidTurn_events_times)+0.001),right = F)
+df <- data.frame(driving_behavior_org$rapidTurn_events_times, driving_behavior_org$total_journey_actual_score,cut_point)
+names(df) <- c("rapidTurn_events_times","score","cut_point")
+# head(df)
+# str(df)
+# summary(df)
+
+df_group <- group_by(df, cut_point)
+df_sum <- summarise(df_group, 
+                    mean_score  = mean(score),
+                    weight  = length(score)
+)
+df_sum <- as.data.frame(df_sum)
+colnames(df_sum) <- c("var_band","loss_ratio_base","Total_prem_base")
+df_sum$var_band <- as.character(df_sum$var_band)
+# str(df_sum)
+for (i in 1:nrow(df_sum)){
+  # loc1 <- gregexpr("[",df_sum$var_band[1])[[1]][1]
+  loc2 <- gregexpr(",",df_sum$var_band[i])[[1]][1]
+  loc3 <- gregexpr(")",df_sum$var_band[i])[[1]][1]
+  df_sum$var_band[i] <- paste0(substr(df_sum$var_band[i],2,loc2-1),"-",substr(df_sum$var_band[i],loc2+1,loc3-1))
+}
+df_sum$var_band[17] <- '> 100'
+
+df = df_sum  
+p <- ggplot(df, aes(x=var_band))+
+  scale_x_discrete(limits=df$var_band)+
+  # weight
+  geom_bar(aes(y=Total_prem_base, fill=var_band), stat = 'identity', fill = gray(0.7))+
+  # actual
+  geom_line(aes(y=loss_ratio_base* 0.02*max(df$Total_prem_base), group=1), colour = "steelblue", size = 1)+
+  geom_point(aes(y=loss_ratio_base* 0.02*max(df$Total_prem_base), group=1), colour = "steelblue", size = 2)+
+  # geom_line(aes(y=(avg_base_lr)* 3*max(df$Total_prem_base),  group=2), colour = "steelblue", size = 0.6)+
+  scale_y_continuous(limits=c(0, 2.5*max(df$Total_prem_base)), 
+                     sec.axis = sec_axis(~. *50/(max(df$Total_prem_base)), name = 'Trip Score'))+
+  theme(axis.text.x=element_text(angle=45,hjust=0.2,vjust=0.1))+
+  labs(title="One-Way Analysis on Harsh Cornering Count", y = "Number of Trips", x = "") + 
+  theme(plot.title = element_text(hjust = 0.5))
+print(p)
+
 
 str(driving_behavior_org)
 
