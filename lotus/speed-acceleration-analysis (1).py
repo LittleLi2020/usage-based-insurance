@@ -148,36 +148,6 @@ pca_score = np.dot(z_norms,pca.components_.T)
 pca_score
 
 
-# In[18]:
-
-
-# speed visualize
-df_vis = df[df["journeyID"] == 37]
-df_vis["VehSpdLgtA"].plot()
-
-
-# In[19]:
-
-
-# speed-acceleration visualize
-ax_1 = plt.scatter(df_vis["VehSpdLgtA"],df_vis["tg_acceleration"],s = 10)
-plt.xlabel("VehSpdLgtA")
-plt.ylabel("tg_acceleration")
-
-
-# In[20]:
-
-
-# kernel density visualize
-x,y = df_vis["VehSpdLgtA"],df_vis["tg_acceleration"]
-xx,yy,zz,z_norm = kde2D(x,y,bandwidth = 2)
-plt.pcolormesh(xx, yy, zz)
-plt.colorbar()
-plt.scatter(x, y, s=2, facecolor='white')
-plt.xlabel("VehSpdLgtA")
-plt.ylabel("tg_acceleration")
-
-
 # In[21]:
 
 
@@ -189,11 +159,36 @@ X = np.arange(journeyID_num) + 1
 first_PCA_score = (pca_score[:,0] - pca_score[:,0].min()) / (pca_score[:,0].max() - pca_score[:,0].min())
 second_PCA_score = (pca_score[:,1] - pca_score[:,1].min()) / (pca_score[:,1].max() - pca_score[:,1].min())
 
-plt.bar(X,first_PCA_score,width = 0.35,alpha = 0.9,facecolor = "red",label = "First")
-plt.bar(X + 0.35,second_PCA_score,width = 0.35,alpha = 0.9, facecolor = "blue",label = "Second")
+plt.bar(X,first_PCA_score,width = 0.35,alpha = 0.9,facecolor = "red",label = "First component score")
+plt.bar(X + 0.35,second_PCA_score,width = 0.35,alpha = 0.9, facecolor = "blue",label = "Second component score")
 plt.xlabel("Journey ID")
 plt.ylabel("PCA Score")
 plt.xticks(X,labels)
 plt.legend()
+plt.show()
+
+
+# In[32]:
+
+
+# speed visualize
+df_vis = df[df["journeyID"] == 2]
+df_vis["VehSpdLgtA"].plot()
+plt.xlabel("$TimeStamp(s)$")
+plt.ylabel("$Speed(km/h)$")
+plt.show()
+
+
+# In[33]:
+
+
+# kernel density visualize
+x,y = df_vis["VehSpdLgtA"],df_vis["tg_acceleration"]
+xx,yy,zz,z_norm = kde2D(x,y,bandwidth = 3)
+plt.pcolormesh(xx, yy, zz,shading='auto')
+plt.colorbar()
+plt.scatter(x, y, s=10, facecolor='white')
+plt.xlabel("$Speed(km/h)$")
+plt.ylabel("$Acceleration(m/s^2)$")
 plt.show()
 
